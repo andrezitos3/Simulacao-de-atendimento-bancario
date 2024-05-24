@@ -1,13 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.simulacao.de.atendimento.bancario;
 
-/**
- *
- * @author Pichau
- */
+import java.io.*;
+import java.lang.Thread;
+
 public class Cronometro {
+    public int contador;
+    
+    void segundos() throws InterruptedException{
+        Thread.sleep(1000);
+        contador = contador + 1;
+    }
+    
     
 }

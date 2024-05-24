@@ -1,28 +1,33 @@
 package com.mycompany.simulacao.de.atendimento.bancario;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.io.*;
 import java.lang.Thread;
 import java.util.Random;
 
 public class SimulacaoDeAtendimentoBancario {
 
-    public static void main(String[] args) {
-        LinkedList<Integer> Fila = new LinkedList<Integer>();
+    public static void main(String[] args) throws InterruptedException {
+        ArrayList<Integer> Fila = new ArrayList<Integer>();
         Cronometro cronometro = new Cronometro();
         Random rd = new Random();
-        
-        int RandomNumber = rd.nextInt(0, 29);
-        
-        //fazer os segundos passarem pelos numeros gerados
-        //tem que parar quando a fila acabar ok
-        while (Fila.isEmpty() != true){
-            System.out.println(i);
+
+        int RandomNumber;
+
+        //esse for é temporario
+        for(int i = 0; i < 21600; i++) {
+
+            RandomNumber = rd.nextInt(0, 29);
+            cronometro.segundos();
             
-            if(RandomNumber == 0) {
-                
+            //Adiciona cliente na fila
+            if (RandomNumber == 0) {
+                Fila.add(cronometro.contador);
             }
-        cronometro.segundos();
-    }
+            
+            System.out.println(RandomNumber);
+        }
+        
+        
     }
 }
