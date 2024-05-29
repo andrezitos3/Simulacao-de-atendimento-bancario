@@ -9,35 +9,24 @@ import java.util.Random;
 
 public class Guiche {
         
-        public boolean ocupado = false;
+        private boolean ocupado;
         
-        public int operacao(){
-            
-            Random rd = new Random();
-            
-            int opcao = rd.nextInt(0, 3);
-            
-            int tempomedio = 0;
-            
-            // 0 saque 1 deposito 2 pagamento
-            // retorna os tempo em segundos 
-            switch (opcao){
-                case 0:
-                    tempomedio = 60;
-                    break;
-                case 1:
-                    tempomedio = 90;
-                    break;
-                case 2:
-                    tempomedio = 120;
-                    break;
-            }
-            return tempomedio;
+        private int tempoUtilizacao;
+        
+        public Guiche(){}
+        
+        public void setOcupado(boolean oc){
+            this.ocupado = oc;
         }
-        public void utilizando(ArrayList Fila){
-            
-            ocupado = true;
-            
-            Fila.remove(0);
+        public void setTempoUtilizacao(int segundosOp){
+            this.tempoUtilizacao = segundosOp;
         }
+
+    public boolean isOcupado() {
+        return ocupado;
+    }
+
+    public int getTempoUtilizacao() {
+        return tempoUtilizacao;
+    }
 }
