@@ -6,46 +6,68 @@ import java.lang.Thread;
 import java.util.Random;
 
 public class SimulacaoDeAtendimentoBancario {
-    static int cronometro;
-    
+
     public static void main(String[] args) throws InterruptedException {
 
         ArrayList<Cliente> Fila = new ArrayList<Cliente>();
-
         Random rd = new Random();
+        
+        Guiche guiches[] = new Guiche[3];
+        for (int i = 0; i < guiches.length; i++) {
+            guiches[i] = new Guiche();
+        }
+        
+        int cronometro = 0;
+        int tempoExtra = 0;
 
-         Guiche guiches[] = new Guiche[3];
+        while (cronometro <= 21600 || Fila.isEmpty() == false) {
+            
+            if(cronometro > 21600) { //tempo extra
+                tempoExtra++;
+            }
+            
+            if(cronometro <= 21600){ // Adiciona cliente a fila enquanto ainda está dentro do expediente
+                
+                int cliente;
+                cliente = rd.nextInt(0, 30);
+                cronometro++;
 
-         for (int i = 0; i < guiches.length; i++){
+                if (cliente == 0) {
+                    int op = rd.nextInt(0, 3);
+                    Fila.add(new Cliente(cronometro, op));
+                }
+            
+            }
 
-            guiches[i] =new  Guiche();
-
-         }
-
-
-        while(cronometro < 21600) {
-
-            if (cronometro == 0){
-                for (int i = 0; i < guiches.length; i++){
+            if (cronometro == 0) {
+                for (int i = 0; i < guiches.length; i++) {
                     guiches[i].setOcupado(false);
                 }
             }
 
-            // Adiciona cliente a fila
-            int cliente;
-            cliente = rd.nextInt(0, 30);
-            cronometro++;
 
-            if (cliente == 0) {
+            //verifica se os guiches estão vazios
 
-                int op = rd.nextInt(0, 3);
+                for (int i = 0; i < guiches.length; i++) {
+                    Cliente clienteGuiche = Fila.get(0);
+                    if (Fila.isEmpty() == false) {
+                        
+                        if (guiches[i].isOcupado() == false) {
 
-                Fila.add(new Cliente(cronometro, op));
+                        guiches[i].setOcupado(true);
 
-            }
+                        guiches[i].setTempoUtilizacao(clienteGuiche.getTempodeOperacao());
+                        
 
+                        }
+                    }
+
+                    // se estiver vazio adiciona o cliente
+
+                }
         }
-        for (int i = 0; i < Fila.size(); i++){
+
+        for (int i = 0; i < Fila.size(); i++) {
 
             Cliente cliente = Fila.get(i);
 
