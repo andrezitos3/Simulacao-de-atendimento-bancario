@@ -1,52 +1,92 @@
-
 package com.mycompany.simulacao.de.atendimento.bancario;
 
 import java.util.Random;
 
 public class Cliente {
-        int cronometroCliente;
-          int tempodeOperacao;
 
-          public Cliente(){}
+    private int cronometroCliente;
+    private int tempodeOperacao;
+    private int saque, deposito, pagamento;
+    private int tempoOcupado;
 
-          public Cliente(int segundos, int operacao){
-              this.cronometroCliente = segundos;
-              int op = operacao();
-              this.tempodeOperacao = op;
-          }
+    public Cliente() {
+    }
 
-          public void mostrarCliente(){
-              System.out.println("Tempo de identificação de cliente: " + cronometroCliente);
-              System.out.println("Tempo de Operação: " + tempodeOperacao);
-          }
+    public Cliente(int segundos, int operacao) {
+        this.cronometroCliente = segundos;
+        int op = operacao();
+        this.tempodeOperacao = op;
+    }
 
-           public int operacao(){
+    public void mostrarCliente() {
+        System.out.println("Tempo de identificação de cliente: " + cronometroCliente);
+        System.out.println("Tempo de Operação: " + tempodeOperacao);
+    }
 
-            Random rd = new Random();
+    public int operacao() {
 
-            int opcao = rd.nextInt(0, 3);
+        Random rd = new Random();
 
-            int tempomedio = 0;
+        int opcao = rd.nextInt(0, 3);
 
-            // 0 saque 1 deposito 2 pagamento
-            // retorna os tempo em segundos 
-            switch (opcao){
-                case 0:
-                    tempomedio = 60;
-                    break;
-                case 1:
-                    tempomedio = 90;
-                    break;
-                case 2:
-                    tempomedio = 120;
-                    break;
-            }
-            return tempomedio;
+        int tempomedio = 0;
+
+        // 0 saque 1 deposito 2 pagamento
+        // retorna os tempo em segundos 
+        switch (opcao) {
+            case 0:
+                tempomedio = 60;
+                this.saque++;
+                break;
+            case 1:
+                tempomedio = 90;
+                this.deposito++;
+                break;
+            case 2:
+                tempomedio = 120;
+                this.pagamento++;
+                break;
         }
-        public int getCronometroCliente(){
-            return this.cronometroCliente;
-        }
-        public int getTempodeOperacao(){
-            return this.tempodeOperacao;
-        }
+        return tempomedio;
+    }
+
+    public int getSaque() {
+        return saque;
+    }
+
+    public void setSaque(int saque) {
+        this.saque = saque;
+    }
+
+    public int getDeposito() {
+        return deposito;
+    }
+
+    public void setDeposito(int deposito) {
+        this.deposito = deposito;
+    }
+
+    public int getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(int pagamento) {
+        this.pagamento = pagamento;
+    }
+
+    public int getTempoOcupado() {
+        return tempoOcupado;
+    }
+
+    public void setTempoOcupado(int tempoOcupado) {
+        this.tempoOcupado = tempoOcupado;
+    }
+
+    public int getCronometroCliente() {
+        return this.cronometroCliente;
+    }
+
+    public int getTempodeOperacao() {
+        return this.tempodeOperacao;
+    }
 }

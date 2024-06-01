@@ -11,6 +11,7 @@ public class SimulacaoDeAtendimentoBancario {
 
         ArrayList<Cliente> Fila = new ArrayList<Cliente>();
         Random rd = new Random();
+        int ClientesTotal = 0;
         
         Guiche guiches[] = new Guiche[3];
         for (int i = 0; i < guiches.length; i++) {
@@ -27,7 +28,6 @@ public class SimulacaoDeAtendimentoBancario {
             }
             
             if(cronometro <= 21600){ // Adiciona cliente a fila enquanto ainda está dentro do expediente
-                
                 int cliente;
                 cliente = rd.nextInt(0, 30);
                 cronometro++;
@@ -35,35 +35,28 @@ public class SimulacaoDeAtendimentoBancario {
                 if (cliente == 0) {
                     int op = rd.nextInt(0, 3);
                     Fila.add(new Cliente(cronometro, op));
+                    ClientesTotal++;
                 }
-            
             }
 
-            if (cronometro == 0) {
+            if (cronometro == 0) { // seta os guichês para começarem vazios ao iniciar o programa
                 for (int i = 0; i < guiches.length; i++) {
                     guiches[i].setOcupado(false);
                 }
             }
 
 
-            //verifica se os guiches estão vazios
+            //verifica se os guiches estão livres para serem usados
 
-                for (int i = 0; i < guiches.length; i++) {
-                    Cliente clienteGuiche = Fila.get(0);
-                    if (Fila.isEmpty() == false) {
+                for (int i = 0; i < guiches.length; i++) { //percorre o array de guichês
+                    Cliente clienteGuiche = Fila.get(0); //pega o primeiro cliente da fila
+                    
+                    if (Fila.isEmpty() == false && guiches[i].isOcupado() == false) { //verifica se a fila esta vazia e se algum guiche esta livre
+                        guiches[i].setOcupado(true); //ocupando o guiche 
                         
-                        if (guiches[i].isOcupado() == false) {
-
-                        guiches[i].setOcupado(true);
-
-                        guiches[i].setTempoUtilizacao(clienteGuiche.getTempodeOperacao());
-                        
-
-                        }
+                        int tempoOcupado = clienteGuiche.operacao() + cronometro; //pega o tempo que o guiche ficou ocupado e soma com o tempo atual
+                        clienteGuiche.setTempoOcupado(tempoOcupado); // salva o valor do tempo ocupado na lcasse cliente
                     }
-
-                    // se estiver vazio adiciona o cliente
-
                 }
         }
 
@@ -75,55 +68,3 @@ public class SimulacaoDeAtendimentoBancario {
         }
     }
 }
-
-//    static int segundosContados = 0;
-//    
-//    public static void main(String[] args) throws InterruptedException {
-//        ArrayList<Integer> Fila = new ArrayList<Integer>();
-//        Random rd = new Random();
-//        Guiche guiches[] = new Guiche[3];
-//        
-//        for(int i = 0; i < guiches.length; i++) {
-//            guiches[i] = new Guiche();
-//        }
-//
-//        // inicializa cliente
-//        int Cliente = 123;
-//        int finall = 0;
-//
-//        
-//        while(segundosContados < 21600) {
-//            
-//            // Adiciona cliente a fila
-//            Cliente = rd.nextInt(0, 30);
-//            segundosContados++;
-//            
-//            if(Cliente == 0) {
-//                Fila.add(segundosContados);
-//                System.out.println("Cliente encontrado na fila no segundo " + segundosContados);
-//                int ClienteFila = 0;
-//                System.out.println(Fila);
-//                
-//                if(guiches[0].ocupado == false) {
-//                    int op = guiches[0].operacao();
-//                    ClienteFila = segundosContados;
-//                    System.out.println("operacao: " + op);
-//                    finall = segundosContados + op;
-//                    System.out.println("Segundos contados: " + segundosContados);
-//                    System.out.println("tempo que o cliente vai sair do guiche: " + finall);
-//                    segundosContados = guiches[0].estaOcupado(segundosContados, finall);
-//                    System.out.println("segundos contados dps do estaOcupado: " + segundosContados);
-//                    
-//                }
-//                if(segundosContados >= finall){
-//                    System.out.println("Segundos contados: " + segundosContados);
-//                    System.out.println("Liberado!!!");
-//                    Fila.remove(0);
-//                }
-//            }
-//            
-//        }
-//        System.out.println(Fila);
-//        System.out.println(Fila);
-//        
-//    }
