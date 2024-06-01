@@ -5,9 +5,9 @@ import java.util.Random;
 public class Cliente {
 
     private int cronometroCliente;
-    private int tempodeOperacao;
+    private int tempodeOperacao; //tempo que demora para fazer a operação
     private int saque, deposito, pagamento;
-    private int tempoOcupado;
+    private int tempoOcupado; //tempo final somado com o cronometro
 
     public Cliente() {
     }
