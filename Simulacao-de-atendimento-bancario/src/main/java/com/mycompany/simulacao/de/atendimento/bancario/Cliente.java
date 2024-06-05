@@ -6,7 +6,6 @@ public class Cliente {
 
     private int cronometroCliente;
     private int tempodeOperacao; //tempo que demora para fazer a operação
-    private int saque, deposito, pagamento;
     private int tempoOcupado; //tempo final somado com o cronometro
 
     public Cliente() {
@@ -14,7 +13,7 @@ public class Cliente {
 
     public Cliente(int segundos, int operacao) {
         this.cronometroCliente = segundos;
-        int op = operacao();
+        int op = this.operacao();
         this.tempodeOperacao = op;
     }
 
@@ -36,42 +35,15 @@ public class Cliente {
         switch (opcao) {
             case 0:
                 tempomedio = 60;
-                this.saque++;
                 break;
             case 1:
                 tempomedio = 90;
-                this.deposito++;
                 break;
             case 2:
                 tempomedio = 120;
-                this.pagamento++;
                 break;
         }
         return tempomedio;
-    }
-
-    public int getSaque() {
-        return saque;
-    }
-
-    public void setSaque(int saque) {
-        this.saque = saque;
-    }
-
-    public int getDeposito() {
-        return deposito;
-    }
-
-    public void setDeposito(int deposito) {
-        this.deposito = deposito;
-    }
-
-    public int getPagamento() {
-        return pagamento;
-    }
-
-    public void setPagamento(int pagamento) {
-        this.pagamento = pagamento;
     }
 
     public int getTempoOcupado() {
