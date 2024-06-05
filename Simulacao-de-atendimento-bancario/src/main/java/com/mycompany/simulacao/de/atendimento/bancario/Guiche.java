@@ -1,8 +1,6 @@
 package com.mycompany.simulacao.de.atendimento.bancario;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+//o guichê só precisa verificar se ele esta ocupado e guardar o tempo que ele será liberado
 public class Guiche {
 
     private boolean ocupado;

@@ -6,9 +6,12 @@ import java.util.Random;
 public class SimulacaoDeAtendimentoBancario {
 
     public static void main(String[] args){
-
+        
+        //inicializa a fila, os guichês e as variaveis que serão utilizadas no relatório final
         ArrayList<Cliente> Fila = new ArrayList<Cliente>();
         Random rd = new Random();
+        int cronometro = 0;
+        int tempoExtra = 0;
         int ClientesTotal = 0;
         int tempoTotalEspera = 0;
         double mediaEspera = 0;
@@ -21,23 +24,17 @@ public class SimulacaoDeAtendimentoBancario {
             guiches[i].setOcupado(false);
         }
         
-        int cronometro = 0;
-        int tempoExtra = 0;
-       
+        //periodo de expediente
         
-            if (cronometro == 0) { // seta os guichês para começarem vazios ao iniciar o programa
-                for (int i = 0; i < guiches.length; i++) {
-                    guiches[i].setOcupado(false);
-                }
-            }
-
-        while (cronometro <= 21600 || Fila.isEmpty() == false) {
+        while (cronometro <= 21600 || Fila.isEmpty() == false) { 
             
-            if(cronometro > 21600) { //tempo extra
+            //tempo extra
+            if(cronometro > 21600) { 
                 tempoExtra++;
             }
             
-            if(cronometro <= 21600){ // Adiciona cliente a fila enquanto ainda está dentro do expediente
+            // Adiciona um cliente a fila enquanto ainda está dentro do expediente
+            if(cronometro <= 21600){ 
                 int cliente;
                 cliente = rd.nextInt(0, 30);
                 
@@ -57,40 +54,30 @@ public class SimulacaoDeAtendimentoBancario {
                     ClientesTotal++;
                 }
             }
+            
 
-
-
-
-            //verifica se os guiches estão livres para serem usados
-
-            if(Fila.isEmpty() == false && guicheLivre(guiches)){ //verifica se a fila esta vazia
-                Cliente clienteGuiche = Fila.get(0); //pega o primeiro cliente da fila
+            //verifica se os guiches estão livres para serem usados e ocupa eles
+            if(Fila.isEmpty() == false && guicheLivre(guiches)){
+                Cliente clienteGuiche = Fila.get(0);
                 Fila.remove(0);
-
-                 
-                for (int i = 0; i < guiches.length; i++) { //percorre o array de guichês
-                    
-                    if (guiches[i].isOcupado() == false) { //verifica se algum guiche esta livre
-                        guiches[i].setOcupado(true); //ocupando o guiche 
-                        
-                        
-                        guiches[i].setTempoUtilizacao(clienteGuiche.operacao() + cronometro);  //pega o tempo que o guiche ficou ocupado e soma com o tempo atual
+                
+                for (int i = 0; i < guiches.length; i++) { //ocupa os guichês
+                    if (guiches[i].isOcupado() == false) {
+                        guiches[i].setOcupado(true); 
+                        guiches[i].setTempoUtilizacao(clienteGuiche.operacao() + cronometro);
                         tempoTotalEspera += cronometro - clienteGuiche.getCronometroCliente();
- 
                     }
                 }
-                
             }
             
-            //libera o guiche com base no tempo que demora para fazer a operação
-            
+            //libera o guiche após ser utilizado
             for(int i = 0; i < guiches.length; i++){
                 if(guiches[i].isOcupado() == true && cronometro == guiches[i].getTempoUtilizacao()) {
                     guiches[i].setOcupado(false);
                 }
             }
             
-            cronometro++;
+            cronometro++; //faz o tempo passar
         }
         
         //Relatório final
@@ -98,7 +85,6 @@ public class SimulacaoDeAtendimentoBancario {
         if(ClientesTotal > 0) { //Faz a média do tempo de espera de todos os clientes
             mediaEspera = tempoTotalEspera / ClientesTotal;
         }
-        
         
         //Cálculos utilizados para obter os segundos e minutos da média
         int segMedia = (int) mediaEspera % 60;
@@ -115,20 +101,17 @@ public class SimulacaoDeAtendimentoBancario {
         System.out.println("Numero total de clientes que fizeram pagamento: " + pagamento);
         System.out.println("Tempo médio de espera na fila: " + minMedia + " minutos " + segMedia + " segundos");
         System.out.println("tempo extra de expediente: " + minExtra + " minutos " + segExtra + " segundos");
-        System.out.println("mediaEspera: " + mediaEspera);
-        System.out.println("tempoTotalEspera: " + tempoTotalEspera);
-        //System.out.println("Cronometro: " + cronometro);
     }
     
+        //esse metodo verifica se algum dos guichês esta livre
         public static boolean guicheLivre(Guiche guiches[]) {
         boolean retorno = false;
-        for (int i = 0; i <= 2; i++) {
+        for (int i = 0; i < guiches.length; i++) {
             if (guiches[i].isOcupado() == false) {
                 retorno = true;
                 break;
             }
         }
         return retorno;
-
     }
 }

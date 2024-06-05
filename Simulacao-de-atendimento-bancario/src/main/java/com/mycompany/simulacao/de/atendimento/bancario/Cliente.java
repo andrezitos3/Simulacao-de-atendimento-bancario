@@ -4,9 +4,8 @@ import java.util.Random;
 
 public class Cliente {
 
-    private int cronometroCliente;
+    private int cronometroCliente; //tempo que o cliente entrou na fila
     private int tempodeOperacao; //tempo que demora para fazer a operação
-    private int tempoOcupado; //tempo final somado com o cronometro
 
     public Cliente() {
     }
@@ -21,8 +20,8 @@ public class Cliente {
         System.out.println("Tempo de identificação de cliente: " + cronometroCliente);
         System.out.println("Tempo de Operação: " + tempodeOperacao);
     }
-
-    public int operacao() {
+    
+    public int operacao() { //define o tempo médio de cada operação
 
         Random rd = new Random();
 
@@ -31,7 +30,7 @@ public class Cliente {
         int tempomedio = 0;
 
         // 0 saque 1 deposito 2 pagamento
-        // retorna os tempo em segundos 
+        // retorna os tempos em segundos 
         switch (opcao) {
             case 0:
                 tempomedio = 60;
@@ -44,14 +43,6 @@ public class Cliente {
                 break;
         }
         return tempomedio;
-    }
-
-    public int getTempoOcupado() {
-        return tempoOcupado;
-    }
-
-    public void setTempoOcupado(int tempoOcupado) {
-        this.tempoOcupado = tempoOcupado;
     }
 
     public int getCronometroCliente() {
