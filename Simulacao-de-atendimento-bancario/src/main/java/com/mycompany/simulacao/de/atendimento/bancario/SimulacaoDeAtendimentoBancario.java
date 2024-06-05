@@ -66,6 +66,7 @@ public class SimulacaoDeAtendimentoBancario {
             if(Fila.isEmpty() == false && guicheLivre(guiches)){ //verifica se a fila esta vazia
                 Cliente clienteGuiche = Fila.get(0); //pega o primeiro cliente da fila
                 Fila.remove(0);
+
                  
                 for (int i = 0; i < guiches.length; i++) { //percorre o array de guichês
                     
@@ -74,7 +75,7 @@ public class SimulacaoDeAtendimentoBancario {
                         
                         
                         guiches[i].setTempoUtilizacao(clienteGuiche.operacao() + cronometro);  //pega o tempo que o guiche ficou ocupado e soma com o tempo atual
-                        tempoTotalEspera += cronometro - dequeue(Fila, clienteGuiche);
+                        tempoTotalEspera += cronometro - clienteGuiche.getCronometroCliente();
  
                     }
                 }
@@ -113,17 +114,10 @@ public class SimulacaoDeAtendimentoBancario {
         System.out.println("Numero total de clientes que fizeram depósito: " + deposito);
         System.out.println("Numero total de clientes que fizeram pagamento: " + pagamento);
         System.out.println("Tempo médio de espera na fila: " + minMedia + " minutos " + segMedia + " segundos");
+        System.out.println("tempo extra de expediente: " + minExtra + " minutos " + segExtra + " segundos");
         System.out.println("mediaEspera: " + mediaEspera);
         System.out.println("tempoTotalEspera: " + tempoTotalEspera);
         //System.out.println("Cronometro: " + cronometro);
-    }
-    
-    public static int dequeue(ArrayList Fila, Cliente c){
-         if (Fila.isEmpty()) {
-            return -1;
-    } else {
-             return c.getCronometroCliente();
-         }
     }
     
         public static boolean guicheLivre(Guiche guiches[]) {
