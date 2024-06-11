@@ -1,31 +1,27 @@
-
 package com.mycompany.simulacao.de.atendimento.bancario;
 
-import java.util.Random;
-
+//o guichê só precisa verificar se ele esta ocupado e guardar o tempo que ele será liberado
 public class Guiche {
-    public boolean ocupado = false;
+
+    private boolean ocupado;
+    private int tempoUtilizacao;
     
-    public int operacao() {
-        Random rd = new Random();
-        ocupado = true;
-        
-        int opcao = rd.nextInt(0,2);
-        int tempoMedio = 0;
-         
-        //pega o tempo médio de cada opção para deixar o guiche ocupado pelo tempo médio
-        switch (opcao) {
-            case 0:
-                tempoMedio = 60;
-                break;
-            case 1:
-                tempoMedio = 90;
-                break;
-            case 2:
-                tempoMedio = 120;
-                break;
-         }
-        
-        return tempoMedio;
+
+    public Guiche(){}
+
+    public void setOcupado(boolean oc){
+        this.ocupado = oc;
+    }
+    
+    public void setTempoUtilizacao(int segundosOp){
+        this.tempoUtilizacao = segundosOp;
 }
+    
+    public boolean isOcupado() {
+        return this.ocupado;
+    }
+
+    public int getTempoUtilizacao() {
+        return tempoUtilizacao;
+    }
 }
